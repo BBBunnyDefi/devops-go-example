@@ -39,7 +39,8 @@ jobs:
         run: echo "GITHUB_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
       
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ghcr.io/aorjoa-training/devops-go-example:${{ env.GITHUB_SHA }}
+        # run: docker build . --file dockerfile --tag ghcr.io/aorjoa-training/devops-go-example:${{ env.github_sha }}
+        run: docker build . --file dockerfile --tag ghcr.io/BBBunnyDefi/devops-go-example:${{ env.github_sha }}
         
       - name: Integration test inside Docker-compose cleanup
         run: docker-compose -f docker-compose.test.yml down
@@ -60,7 +61,8 @@ jobs:
         with:
           context: .
           tags: |
-            ghcr.io/aorjoa-training/devops-go-example:${{ env.GITHUB_SHA }}
+            ghcr.io/BBBunnyDefi/devops-go-example:${{ env.GITHUB_SHA }}
+          # ghcr.io/aorjoa-training/devops-go-example:${{ env.GITHUB_SHA }}
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
 
